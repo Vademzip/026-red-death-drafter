@@ -10,6 +10,8 @@ import AlieMutantsns from "/public/Mutants.webp"
 import Pirates from "/public/Pirates.webp"
 import Wanderers from "/public/Wanderers.webp"
 import Zombies from "/public/Zombies.webp"
+import RichPirates from "/public/richpirate.png"
+import LastMilitary from "/public/Last_military.png"
 import styled from "@emotion/styled";
 
 const CheckBoxContainer = styled.div`
@@ -28,10 +30,12 @@ const Drafter = () => {
         const [error, setError] = useState('')
         const [warning, setWarning] = useState('')
         const [isDraftComplete, setIsDraftComplete] = useState(false)
-         useEffect(() => {
-             if (isDraftComplete)
-                 copyToClipboard(finalDraft)
-         }, [isDraftComplete])
+        useEffect(() => {
+            console.log('я в эффекте')
+            console.log(isDraftComplete)
+            if (isDraftComplete)
+                copyToClipboard(finalDraft)
+        }, [finalDraft, isDraftComplete])
         const handleDrafting = () => {
             setFinalDraft([])
             setIsDraftComplete(false)
@@ -116,8 +120,8 @@ const Drafter = () => {
             'Скитальцы': true,
             'Сумасшедшие ученные': true,
             'Фанаты': true,
-            "Последние военные" : false,
-            "Богатые пираты" : false
+            "Последние военные": false,
+            "Богатые пираты": false
         });
 
         const handleCheckboxChange = (event) => {
@@ -136,6 +140,11 @@ const Drafter = () => {
                 <Box sx={{
                     display: 'flex',
                     marginBottom: '100px',
+                    '@media (max-width: 730px)': {
+                        flexDirection: 'column',
+                        padding: '0 10%',
+                        margin: '0 auto',
+                    }
                 }}>
                     <FormGroup sx={{
                         marginLeft: '100px',
@@ -145,7 +154,10 @@ const Drafter = () => {
                         border: '1px solid black',
                         borderRadius: '5px',
                         rowGap: '25px',
-                        padding: '20px'
+                        padding: '20px',
+                        '@media (max-width: 730px)': {
+                            marginLeft: '0',
+                        }
                     }}>
                         <Typography sx={{
                             textAlign: 'center'
@@ -270,6 +282,7 @@ const Drafter = () => {
                             />
                         </CheckBoxContainer>
                         <CheckBoxContainer>
+                            <img src={LastMilitary}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
                                 label="Последние военные"
@@ -281,6 +294,7 @@ const Drafter = () => {
                             />
                         </CheckBoxContainer>
                         <CheckBoxContainer>
+                            <img src={RichPirates}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
                                 label="Богатые пираты"
@@ -339,9 +353,10 @@ const Drafter = () => {
                     }}>
                         {warning && <Typography sx={{color: 'orange'}}>{warning}</Typography>}
                         {error && <Typography sx={{color: 'red'}}>{error}</Typography>}
-                        {finalDraft && finalDraft.map((player, index) => (
+                        {finalDraft.length > 0 && finalDraft.map((player, index) => (
                             <Typography key={index}>Игрок {index + 1}: {player.join(' / ')}</Typography>
                         ))}
+                        {finalDraft.length > 0 && <Typography>Текст скопирован в буфер обмена</Typography>}
                     </Box>
                 </Box>
 
