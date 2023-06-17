@@ -14,7 +14,7 @@ import RichPirates from "/public/richpirate.png"
 import LastMilitary from "/public/Last_military.png"
 import styled from "@emotion/styled";
 import {useTranslation} from "react-i18next";
-import {use} from "i18next";
+
 
 const CheckBoxContainer = styled.div`
   display: flex;
@@ -64,11 +64,10 @@ const Drafter = () => {
                 return;
             }
 
-            if (numberOfPlayers > 10) {
+            if (numberOfPlayers > 12) {
                 setError(t('errors.too_many_players_error'))
                 return;
             }
-            console.log(numberOfLeaders, checkedCheckboxes.length)
             if (numberOfLeaders > checkedCheckboxes.length) {
                 setError(t('errors.too_little_fractions_error'));
                 return;
@@ -76,18 +75,32 @@ const Drafter = () => {
 
 
             if (numberOfLeaders * numberOfPlayers > checkedCheckboxes.length) {
+                const selectedFractions = []
+                let selectedFractionsAmount = 0
                 setWarning(t('warnings.warning_1'))
                 for (let i = 0; i < numberOfPlayers; i++) {
                     const playerArray = []
                     for (let j = 0; j < numberOfLeaders; j++) {
+                        if (selectedFractionsAmount === checkedCheckboxes.length){
+                            selectedFractions.length = 0
+                            selectedFractionsAmount = 0
+                        }
                         let randomIndex;
                         while (true) {
                             randomIndex = Math.floor(Math.random() * checkedCheckboxes.length);
-                            if (!playerArray.includes(checkedCheckboxes[randomIndex])) {
-                                break;
+                            const randomElement = checkedCheckboxes[randomIndex]
+                            if (selectedFractions.includes(randomElement)) {
+
+                            } else {
+                                if (!playerArray.includes(randomElement)) {
+                                    break;
+                                }
                             }
+
                         }
                         playerArray.push(checkedCheckboxes[randomIndex]);
+                        selectedFractions.push(checkedCheckboxes[randomIndex]);
+                        selectedFractionsAmount++;
                     }
                     setFinalDraft(prevState => [...prevState, playerArray.sort()]);
                 }

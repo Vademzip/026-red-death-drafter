@@ -16,7 +16,7 @@
   },
   "errors": {
     "wrong_number_error" : "Data entered incorrectly. The number of players and factions must be a positive number.",
-    "too_many_players_error" : "Too many players, maximum 10.",
+    "too_many_players_error" : "Too many players, maximum 12.",
     "too_little_fractions_error" : "There are not enough available factions for each player."
   },
   "warnings": {
