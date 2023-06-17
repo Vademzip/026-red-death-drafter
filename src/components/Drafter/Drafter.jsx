@@ -13,6 +13,8 @@ import Zombies from "/public/Zombies.webp"
 import RichPirates from "/public/richpirate.png"
 import LastMilitary from "/public/Last_military.png"
 import styled from "@emotion/styled";
+import {useTranslation} from "react-i18next";
+import {use} from "i18next";
 
 const CheckBoxContainer = styled.div`
   display: flex;
@@ -30,33 +32,51 @@ const Drafter = () => {
         const [error, setError] = useState('')
         const [warning, setWarning] = useState('')
         const [isDraftComplete, setIsDraftComplete] = useState(false)
+        const {t, i18n} = useTranslation();
+        const [translatedFractions, setTranslatedFractions] = useState([])
+        const currentLanguage = i18n.language
+
+
         useEffect(() => {
-            console.log('я в эффекте')
-            console.log(isDraftComplete)
             if (isDraftComplete)
-                copyToClipboard(finalDraft)
+                setTranslatedFractions(finalDraft.map((fractionArray) =>
+                    fractionArray.map((key) => i18n.t(`fractions_list.${key}`))
+                ));
+
         }, [finalDraft, isDraftComplete])
+
+        useEffect(() => {
+            if (isDraftComplete)
+                copyToClipboard(translatedFractions)
+        }, [translatedFractions])
+
+        useEffect(() => {
+            if (isDraftComplete)
+                setTranslatedFractions(finalDraft.map((fractionArray) =>
+                    fractionArray.map((key) => i18n.t(`fractions_list.${key}`))
+                ));
+        }, [currentLanguage])
         const handleDrafting = () => {
             setFinalDraft([])
             setIsDraftComplete(false)
             if (isNaN(numberOfPlayers) || isNaN(numberOfLeaders) || numberOfPlayers <= 0 || numberOfLeaders <= 0) {
-                setError('Неверно введены данные. Количество игроков и лидеров должно быть положительным числом.')
+                setError(t('errors.wrong_number_error'))
                 return;
             }
 
             if (numberOfPlayers > 10) {
-                setError('Слишком большое количество игроков, максимум 10.')
+                setError(t('errors.too_many_players_error'))
                 return;
             }
-
+            console.log(numberOfLeaders, checkedCheckboxes.length)
             if (numberOfLeaders > checkedCheckboxes.length) {
-                setError('Недостаточно доступных лидеров для каждого игрока.');
+                setError(t('errors.too_little_fractions_error'));
                 return;
             }
 
 
-            if (numberOfLeaders * numberOfPlayers > 10) {
-                setWarning('На всех игроков не хватит фракций, поэтому фракции могут повторяться.')
+            if (numberOfLeaders * numberOfPlayers > checkedCheckboxes.length) {
+                setWarning(t('warnings.warning_1'))
                 for (let i = 0; i < numberOfPlayers; i++) {
                     const playerArray = []
                     for (let j = 0; j < numberOfLeaders; j++) {
@@ -91,6 +111,7 @@ const Drafter = () => {
                 }
             }
             setError('')
+
             setIsDraftComplete(true)
         }
         const copyToClipboard = (fractionArray) => {
@@ -110,18 +131,18 @@ const Drafter = () => {
         };
 
         const [checkboxValues, setCheckboxValues] = useState({
-            'Антигерои': true,
-            'Выживальщики': true,
-            'Зомби': true,
-            'Инопланетяне': true,
-            'Мутанты': true,
-            'Пираты': true,
-            'Сектанты': true,
-            'Скитальцы': true,
-            'Сумасшедшие ученные': true,
-            'Фанаты': true,
-            "Последние военные": false,
-            "Богатые пираты": false
+            'Borderlords': true,
+            'Doomsday Preppers': true,
+            'Zombies': true,
+            'Aliens': true,
+            'Mutants': true,
+            'Pirates': true,
+            'Cultists': true,
+            'Wanderers': true,
+            'Mad Scientists': true,
+            'Jocks': true,
+            "Last Military": false,
+            "Rich Pirates": false
         });
 
         const handleCheckboxChange = (event) => {
@@ -161,14 +182,14 @@ const Drafter = () => {
                     }}>
                         <Typography sx={{
                             textAlign: 'center'
-                        }}>Список лидеров</Typography>
+                        }}>{t('fractions_list_title')}</Typography>
                         <CheckBoxContainer>
                             <img src={Borderlords}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Антигерои"
-                                name="Антигерои"
-                                checked={checkboxValues['Антигерои']}
+                                label={t('fractions_list.Borderlords')}
+                                name={'Borderlords'}
+                                checked={checkboxValues['Borderlords']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
                             />
@@ -177,9 +198,9 @@ const Drafter = () => {
                             <img src={Doomsday_Preppers}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Выживальщики"
-                                name="Выживальщики"
-                                checked={checkboxValues['Выживальщики']}
+                                label={t('fractions_list.Doomsday Preppers')}
+                                name={'Doomsday Preppers'}
+                                checked={checkboxValues['Doomsday Preppers']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -189,9 +210,9 @@ const Drafter = () => {
                             <img src={Zombies}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Зомби"
-                                name="Зомби"
-                                checked={checkboxValues['Зомби']}
+                                label={t('fractions_list.Zombies')}
+                                name={'Zombies'}
+                                checked={checkboxValues['Zombies']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -201,9 +222,9 @@ const Drafter = () => {
                             <img src={Aliens}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Инопланетяне"
-                                name="Инопланетяне"
-                                checked={checkboxValues['Инопланетяне']}
+                                label={t('fractions_list.Aliens')}
+                                name={'Aliens'}
+                                checked={checkboxValues['Aliens']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -213,9 +234,9 @@ const Drafter = () => {
                             <img src={AlieMutantsns}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Мутанты"
-                                name="Мутанты"
-                                checked={checkboxValues['Мутанты']}
+                                label={t('fractions_list.Mutants')}
+                                name={'Mutants'}
+                                checked={checkboxValues['Mutants']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -225,9 +246,9 @@ const Drafter = () => {
                             <img src={Pirates}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Пираты"
-                                name="Пираты"
-                                checked={checkboxValues['Пираты']}
+                                label={t('fractions_list.Pirates')}
+                                name={'Pirates'}
+                                checked={checkboxValues['Pirates']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -237,9 +258,9 @@ const Drafter = () => {
                             <img src={Cultists}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Сектанты"
-                                name="Сектанты"
-                                checked={checkboxValues['Сектанты']}
+                                label={t('fractions_list.Cultists')}
+                                name={'Cultists'}
+                                checked={checkboxValues['Cultists']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -249,9 +270,9 @@ const Drafter = () => {
                             <img src={Wanderers}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Скитальцы"
-                                name="Скитальцы"
-                                checked={checkboxValues['Скитальцы']}
+                                label={t('fractions_list.Wanderers')}
+                                name={'Wanderers'}
+                                checked={checkboxValues['Wanderers']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -261,9 +282,9 @@ const Drafter = () => {
                             <img src={Mad_Scientists}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Сумасшедшие ученные"
-                                name="Сумасшедшие ученные"
-                                checked={checkboxValues['Сумасшедшие ученные']}
+                                label={t('fractions_list.Mad Scientists')}
+                                name={'Mad Scientists'}
+                                checked={checkboxValues['Mad Scientists']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -273,9 +294,9 @@ const Drafter = () => {
                             <img src={Jocks}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Фанаты"
-                                name="Фанаты"
-                                checked={checkboxValues['Фанаты']}
+                                label={t('fractions_list.Jocks')}
+                                name={'Jocks'}
+                                checked={checkboxValues['Jocks']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -285,9 +306,9 @@ const Drafter = () => {
                             <img src={LastMilitary}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Последние военные"
-                                name="Последние военные"
-                                checked={checkboxValues['Последние военные']}
+                                label={t('fractions_list.Last Military')}
+                                name={'Last Military'}
+                                checked={checkboxValues['Last Military']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -297,9 +318,9 @@ const Drafter = () => {
                             <img src={RichPirates}/>
                             <FormControlLabel
                                 control={<Checkbox/>}
-                                label="Богатые пираты"
-                                name="Богатые пираты"
-                                checked={checkboxValues['Богатые пираты']}
+                                label={t('fractions_list.Rich Pirates')}
+                                name={'Rich Pirates'}
+                                checked={checkboxValues['Rich Pirates']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 
@@ -325,7 +346,7 @@ const Drafter = () => {
                             }}
                             type="number"
                             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
-                            helperText="Количество игроков"
+                            helperText={t('helper_text.amount_of_player_helper_text')}
                         />
                         <TextField
                             onChange={(e) => setNumberOfLeaders(Number(e.target.value))}
@@ -338,13 +359,13 @@ const Drafter = () => {
                             }}
                             type="number"
                             inputProps={{inputMode: 'numeric', pattern: '[0-9]*'}}
-                            helperText="Количество лидеров на выбор"
+                            helperText={t('helper_text.amount_of_fractions_helper_text')}
                         />
                         <Button sx={{
                             height: '50px'
                         }
                         } onClick={handleDrafting} variant="contained" color="primary">
-                            Распределить
+                            {t('draftButton')}
                         </Button>
                     </Box>
                     <Box sx={{
@@ -353,10 +374,10 @@ const Drafter = () => {
                     }}>
                         {warning && <Typography sx={{color: 'orange'}}>{warning}</Typography>}
                         {error && <Typography sx={{color: 'red'}}>{error}</Typography>}
-                        {finalDraft.length > 0 && finalDraft.map((player, index) => (
+                        {finalDraft.length > 0 && translatedFractions.map((player, index) => (
                             <Typography key={index}>Игрок {index + 1}: {player.join(' / ')}</Typography>
                         ))}
-                        {finalDraft.length > 0 && <Typography>Текст скопирован в буфер обмена</Typography>}
+                        {finalDraft.length > 0 && <Typography>{t('helper_text.text_copy_to_clipboard')}</Typography>}
                     </Box>
                 </Box>
 

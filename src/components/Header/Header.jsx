@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from "@emotion/styled";
 import Logo from "/public/logo.svg"
+import {useTranslation} from "react-i18next";
+import {Typography} from "@mui/material";
 
 const HeaderContent = styled.div`
   height: 100%;
@@ -49,6 +51,12 @@ const NavBar = styled.div`
 `
 
 const Header = () => {
+    const {t, i18n} = useTranslation();
+    const currentLanguage = i18n.language
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language);
+    };
+
     return (
         <header>
             <div className={'container'}>
@@ -59,10 +67,31 @@ const Header = () => {
                             <LogoImg src={Logo}/>
                         </LogoBlock>
                     </a>
+                    <NavBar>
+                        <Typography
+                            onClick={() => {
+                                changeLanguage('ru')
+                            }}
+                            sx={{
+                                fontWeight: `${currentLanguage === 'ru' ? 600 : ''}`,
+                                textDecoration: `${currentLanguage === 'ru' ? 'underline' : ''}`,
+                                cursor : 'pointer'
+                            }}>RU</Typography>
+                        <Typography
+                            onClick={() => {
+                                changeLanguage('en')
+                            }}
+                            sx={{
+                                fontWeight: `${currentLanguage === 'en' ? 600 : ''}`,
+                                textDecoration: `${currentLanguage === 'en' ? 'underline' : ''}`,
+                                cursor : 'pointer'
+                            }}>EN</Typography>
+                    </NavBar>
                 </HeaderContent>
             </div>
         </header>
-    );
+    )
+        ;
 };
 
 export default Header;

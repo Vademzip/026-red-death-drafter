@@ -1,0 +1,31 @@
+{
+  "fractions_list_title" : "List of factions",
+  "fractions_list" : {
+    "Borderlords" : "Borderlords",
+    "Doomsday Preppers": "Doomsday Preppers",
+    "Zombies" : "Zombies",
+    "Aliens" : "Aliens",
+    "Mutants" : "Mutants",
+    "Pirates" : "Pirates",
+    "Cultists" : "Cultists",
+    "Wanderers" : "Wanderers",
+    "Jocks" : "Jocks",
+    "Rich Pirates" : "Rich Pirates",
+    "Last Military" : "Last Military",
+    "Mad Scientists" : "Mad Scientists"
+  },
+  "errors": {
+    "wrong_number_error" : "Data entered incorrectly. The number of players and factions must be a positive number.",
+    "too_many_players_error" : "Too many players, maximum 10.",
+    "too_little_fractions_error" : "There are not enough available factions for each player."
+  },
+  "warnings": {
+    "warning_1" : "There are not enough fractions for all players, so fractions can be repeated."
+  },
+  "helper_text" : {
+    "amount_of_player_helper_text" : "Number of players",
+    "amount_of_fractions_helper_text" : "Number of fractions to choose",
+    "text_copy_to_clipboard" : "The text is copied to the clipboard"
+  },
+  "draftButton" : "Draft"
+}

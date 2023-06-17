@@ -1,0 +1,31 @@
+{
+    "fractions_list_title" : "Список фракций",
+    "fractions_list" : {
+        "Borderlords" : "Антигерои",
+        "Doomsday Preppers": "Выживальщики",
+        "Zombies" : "Зомби",
+        "Aliens" : "Инопланетяне",
+        "Mutants" : "Мутанты",
+        "Pirates" : "Пираты",
+        "Cultists" : "Сектанты",
+        "Wanderers" : "Скитальцы",
+        "Jocks" : "Фанаты",
+        "Rich Pirates" : "Богатые пираты",
+        "Last Military" : "Последние военные",
+        "Mad Scientists" : "Сумасшедшие ученные"
+    },
+    "errors": {
+        "wrong_number_error" : "Неверно введены данные. Количество игроков и фракций должно быть положительным числом.",
+        "too_many_players_error" : "Слишком большое количество игроков, максимум 10.",
+        "too_little_fractions_error" : "Недостаточно доступных фракций для каждого игрока."
+    },
+    "warnings": {
+        "warning_1" : "На всех игроков не хватит фракций, поэтому фракции могут повторяться."
+    },
+    "helper_text" : {
+        "amount_of_player_helper_text" : "Количество игроков",
+        "amount_of_fractions_helper_text" : "Количество фракций на выбор",
+        "text_copy_to_clipboard" : "Текст скопирован в буфер обмена"
+    },
+    "draftButton" : "Распределить"
+}
