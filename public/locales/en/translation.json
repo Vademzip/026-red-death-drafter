@@ -27,5 +27,11 @@
     "amount_of_fractions_helper_text" : "Number of fractions to choose",
     "text_copy_to_clipboard" : "The text is copied to the clipboard"
   },
-  "draftButton" : "Draft"
+  "draftButton" : "Draft",
+  "player": "Player",
+  "footer_text": {
+    "other_project" : "See other projects",
+    "made_by": "Made by",
+    "version": "Version"
+  }
 }

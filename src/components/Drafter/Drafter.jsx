@@ -117,7 +117,7 @@ const Drafter = () => {
         const copyToClipboard = (fractionArray) => {
             let text = '';
             fractionArray.forEach((player, index) => {
-                const playerText = `Игрок ${index + 1}: ${player.join(' / ')}\n`;
+                const playerText = `${t('player')} ${index + 1}: ${player.join(' / ')}\n`;
                 text += playerText;
             });
             console.log(text.trim())
@@ -375,7 +375,7 @@ const Drafter = () => {
                         {warning && <Typography sx={{color: 'orange'}}>{warning}</Typography>}
                         {error && <Typography sx={{color: 'red'}}>{error}</Typography>}
                         {finalDraft.length > 0 && translatedFractions.map((player, index) => (
-                            <Typography key={index}>Игрок {index + 1}: {player.join(' / ')}</Typography>
+                            <Typography key={index}>{t('player')} {index + 1}: {player.join(' / ')}</Typography>
                         ))}
                         {finalDraft.length > 0 && <Typography>{t('helper_text.text_copy_to_clipboard')}</Typography>}
                     </Box>

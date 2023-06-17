@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Drafter from "./components/Drafter/Drafter.jsx";
 import Header from "./components/Header/Header.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
     <>
         <Header/>
         <Drafter/>
+        <Footer/>
     </>
   )
 }

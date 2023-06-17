@@ -27,5 +27,11 @@
         "amount_of_fractions_helper_text" : "Количество фракций на выбор",
         "text_copy_to_clipboard" : "Текст скопирован в буфер обмена"
     },
-    "draftButton" : "Распределить"
+    "draftButton" : "Распределить",
+    "player": "Игрок",
+    "footer_text": {
+        "other_project" : "Оцените другие проекты",
+        "made_by": "Сделано",
+        "version": "Версия"
+    }
 }
