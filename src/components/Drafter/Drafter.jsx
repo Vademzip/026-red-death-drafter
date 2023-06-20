@@ -12,6 +12,7 @@ import Wanderers from "/public/Wanderers.webp"
 import Zombies from "/public/Zombies.webp"
 import RichPirates from "/public/richpirate.png"
 import LastMilitary from "/public/Last_military.png"
+import RaiderLeaders from "/public/Raider_Leaders.webp"
 import styled from "@emotion/styled";
 import {useTranslation} from "react-i18next";
 
@@ -155,7 +156,8 @@ const Drafter = () => {
             'Mad Scientists': true,
             'Jocks': true,
             "Last Military": false,
-            "Rich Pirates": false
+            "Rich Pirates": false,
+            "Raider Leaders" : false
         });
 
         const handleCheckboxChange = (event) => {
@@ -334,6 +336,18 @@ const Drafter = () => {
                                 label={t('fractions_list.Rich Pirates')}
                                 name={'Rich Pirates'}
                                 checked={checkboxValues['Rich Pirates']}
+                                onChange={handleCheckboxChange}
+                                labelPlacement="start"
+
+                            />
+                        </CheckBoxContainer>
+                        <CheckBoxContainer>
+                            <img src={RaiderLeaders}/>
+                            <FormControlLabel
+                                control={<Checkbox/>}
+                                label={t('fractions_list.Raider Leaders')}
+                                name={'Raider Leaders'}
+                                checked={checkboxValues['Raider Leaders']}
                                 onChange={handleCheckboxChange}
                                 labelPlacement="start"
 

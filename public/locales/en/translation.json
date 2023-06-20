@@ -12,7 +12,8 @@
     "Jocks" : "Jocks",
     "Rich Pirates" : "Rich Pirates",
     "Last Military" : "Last Military",
-    "Mad Scientists" : "Mad Scientists"
+    "Mad Scientists" : "Mad Scientists",
+    "Raider Leaders" : "Raider Leaders"
   },
   "errors": {
     "wrong_number_error" : "Data entered incorrectly. The number of players and factions must be a positive number.",
