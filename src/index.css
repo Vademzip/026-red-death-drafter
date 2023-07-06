@@ -13,6 +13,10 @@ header{
   border-bottom: 1px solid black;
 }
 
+body{
+  margin: 0;
+}
+
 .container{
   margin: 0 auto;
   max-width: 1280px;
