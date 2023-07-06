@@ -13,6 +13,10 @@ header{
   border-bottom: 1px solid black;
 }
 
+header[data-theme="dark"]{
+  border-bottom: 1px solid white;
+}
+
 body{
   margin: 0;
 }

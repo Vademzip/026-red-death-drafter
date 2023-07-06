@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from "@emotion/styled";
 import Logo from "/public/logo.svg"
 import {useTranslation} from "react-i18next";
@@ -31,6 +31,8 @@ const Title = styled.div`
 const LogoImg = styled.img`
   height: 64px;
   width: 64px;
+  -webkit-filter: ${props => props.theme === 'dark' ? 'invert(100%);' : ''} /* safari 6.0 - 9.0 */
+  filter: ${props => props.theme === 'dark' ? 'invert(100%);' : ''};
 `
 
 
@@ -50,21 +52,28 @@ const NavBar = styled.div`
   }
 `
 
-const Header = () => {
+const Header = ({theme}) => {
     const {t, i18n} = useTranslation();
     const currentLanguage = i18n.language
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
+        localStorage.setItem('language', language);
     };
 
+    useEffect(() => {
+        const language = localStorage.getItem('language')
+        if (language)
+            i18n.changeLanguage(language)
+    }, [])
+
     return (
-        <header>
+        <header data-theme={theme}>
             <div className={'container'}>
                 <HeaderContent>
                     <a href={'/'}>
                         <LogoBlock>
-                            <Title>Red Death Drafter</Title>
-                            <LogoImg src={Logo}/>
+                            <Title theme={theme}>Red Death Drafter</Title>
+                            <LogoImg theme={theme} src={Logo}/>
                         </LogoBlock>
                     </a>
                     <NavBar>
