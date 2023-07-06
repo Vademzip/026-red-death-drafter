@@ -1,14 +1,14 @@
 [
   {
-    "img_src": "/public/Borderlords.webp",
+    "img_src": "/Borderlords.webp",
     "name": "Borderlords"
   },
   {
-    "img_src": "/public/Doomsday_Preppers.webp",
+    "img_src": "./Doomsday_Preppers.webp",
     "name": "Doomsday Preppers"
   },
   {
-    "img_src": "/public/Zombies.webp",
+    "img_src": "./public/Zombies.webp",
     "name": "Zombies"
   },
   {
